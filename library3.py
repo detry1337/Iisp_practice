@@ -6,12 +6,10 @@ class Dish:
         self.cost = cost
 
     def __str__(self):
-        return 'Dish:\n{} {}\nВес: {}\nЦена: {} рублей\n'\
-            .format(self.name, self.category, self.weight, self.cost)
+        return 'Dish:\n{} {}\nВес: {}\nЦена: {} рублей\n'.format(self.name, self.category, self.weight, self.cost)
 
     def __repr__(self):
-        return 'Dish(name="{}", category="{}", weight={}, cost={})'\
-            .format(self.name, self.category, self.weight, self.cost)
+        return 'Dish(name="{}", category="{}", weight={}, cost={})'.format(self.name, self.category, self.weight, self.cost)
 
     def setDish(self, name, category, weight, cost):
         self.name = name
@@ -20,8 +18,7 @@ class Dish:
         self.cost = int(cost)
     
     def getDish(self):
-        return '{} {}\nВес: {}\nЦена: {} рублей\n'\
-            .format(self.name, self.category, self.weight, self.cost)
+        return '{} {}\nВес: {}\nЦена: {} рублей\n'.format(self.name, self.category, self.weight, self.cost)
 
 class Grup:
     def __init__(self):
@@ -49,6 +46,7 @@ class Grup:
                     dish.setDish(dish_name, category, weight, cost)
                     self.A.append(dish)
                     self.menu_dict[dish_name] = dish
+        print("Data loaded: ", self.menu_dict)  # Отладочное сообщение
 
     def append_dish(self, name, category, weight, cost):
         if not name or not category or not weight or not cost:
@@ -64,8 +62,44 @@ class Grup:
         self.A.append(new_dish)
         self.menu_dict[name] = new_dish
         return True
-
     
+    def delete_dish_by_name(self, name):
+        if name in self.menu_dict:
+            dish = self.menu_dict.pop(name)
+            self.A.remove(dish)
+            return True
+        return False
+
+    def delete_cell(self, row, col):
+        if row < len(self.A):
+            dish = self.A[row]
+            if col == 0:
+                self.delete_dish_by_name(dish.name)
+            elif col == 1:
+                dish.category = ""
+            elif col == 2:
+                dish.weight = 0
+            elif col == 3:
+                dish.cost = 0
+            return True
+        return False
+
+    def edit_cell(self, row, col, new_value):
+        if row < len(self.A):
+            dish = self.A[row]
+            if col == 0:
+                self.delete_dish_by_name(dish.name)
+                dish.name = new_value
+                self.menu_dict[new_value] = dish
+            elif col == 1:
+                dish.category = new_value
+            elif col == 2:
+                dish.weight = int(new_value)
+            elif col == 3:
+                dish.cost = int(new_value)
+            return True
+        return False
+
 # Функция для рекурсивного вывода данных блюд категории X в файл
 def write_category_to_file(category, dishes, file):
     if not dishes:
