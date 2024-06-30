@@ -2,123 +2,204 @@
 <ui version="4.0">
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">
-  <property name="enabled">
-   <bool>true</bool>
-  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>696</width>
-    <height>446</height>
+    <width>424</width>
+    <height>578</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Список студентов</string>
+   <string>Dish Manager</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QFrame" name="frame">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>691</width>
-      <height>391</height>
-     </rect>
-    </property>
-    <property name="frameShape">
-     <enum>QFrame::StyledPanel</enum>
-    </property>
-    <property name="frameShadow">
-     <enum>QFrame::Raised</enum>
-    </property>
-    <widget class="QTableWidget" name="tableWidget">
-     <property name="geometry">
-      <rect>
-       <x>0</x>
-       <y>10</y>
-       <width>691</width>
-       <height>231</height>
-      </rect>
-     </property>
-     <property name="frameShape">
-      <enum>QFrame::Box</enum>
-     </property>
-     <property name="frameShadow">
-      <enum>QFrame::Sunken</enum>
-     </property>
-     <property name="rowCount">
-      <number>5</number>
-     </property>
-     <property name="columnCount">
-      <number>4</number>
-     </property>
-     <attribute name="horizontalHeaderVisible">
-      <bool>true</bool>
-     </attribute>
-     <attribute name="horizontalHeaderDefaultSectionSize">
-      <number>168</number>
-     </attribute>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <column>
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QLabel" name="label_title">
       <property name="text">
-       <string>Блюдо</string>
+       <string>МЕНЮ</string>
       </property>
-     </column>
-     <column>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QTableWidget" name="tableWidget">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <column>
+       <property name="text">
+        <string>Название блюда</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Категория</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Вес</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Стоимость</string>
+       </property>
+      </column>
+     </widget>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QLineEdit" name="lineEdit_name">
+        <property name="placeholderText">
+         <string>Dish Name</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="lineEdit_category">
+        <property name="placeholderText">
+         <string>Category</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="lineEdit_weight">
+        <property name="placeholderText">
+         <string>Weight (g)</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="lineEdit_cost">
+        <property name="placeholderText">
+         <string>Cost (rub)</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton_3">
+        <property name="text">
+         <string>Добавить</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <widget class="QPushButton" name="pushButton">
       <property name="text">
-       <string>Категория</string>
+       <string>Заполнить таблицу</string>
       </property>
-     </column>
-     <column>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="pushButton_2">
       <property name="text">
-       <string>Вес</string>
+       <string>Полностью очистить таблицу</string>
       </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Стоимость</string>
-      </property>
-     </column>
-    </widget>
-   </widget>
-   <widget class="QPushButton" name="pushButton_2">
-    <property name="geometry">
-     <rect>
-      <x>210</x>
-      <y>310</y>
-      <width>191</width>
-      <height>81</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Очистить таблицу</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>310</y>
-      <width>201</width>
-      <height>81</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>PushButton</string>
-    </property>
-   </widget>
+     </widget>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <widget class="QLineEdit" name="lineEdit_name_2">
+        <property name="placeholderText">
+         <string>Dish Name</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="lineEdit_category_2">
+        <property name="placeholderText">
+         <string>Category</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="lineEdit_weight_3">
+        <property name="placeholderText">
+         <string>Weight (g)</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="lineEdit_cost_2">
+        <property name="placeholderText">
+         <string>Cost (rub)</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton_4">
+        <property name="text">
+         <string>Заменить</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="buttonLayout"/>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_3">
+      <item>
+       <widget class="QLineEdit" name="lineEdit_name_3">
+        <property name="placeholderText">
+         <string>Dish Name</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="lineEdit_category_3">
+        <property name="placeholderText">
+         <string>Category</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="lineEdit_weight_5">
+        <property name="placeholderText">
+         <string>Weight (g)</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="lineEdit_cost_3">
+        <property name="placeholderText">
+         <string>Cost (rub)</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton_5">
+        <property name="text">
+         <string>Удалить</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="buttonLayout_2"/>
+    </item>
+   </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>696</width>
+     <width>424</width>
      <height>21</height>
     </rect>
    </property>
@@ -126,22 +207,5 @@
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources/>
- <connections>
-  <connection>
-   <sender>pushButton_2</sender>
-   <signal>clicked()</signal>
-   <receiver>tableWidget</receiver>
-   <slot>clearContents()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>319</x>
-     <y>349</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>301</x>
-     <y>222</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>

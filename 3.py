@@ -1,6 +1,6 @@
-import library3 as lib
 import sys
 from PyQt5 import QtWidgets
+import library3 as lib
 from dish_ui import Ui_MainWindow
 
 class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
@@ -11,7 +11,8 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.gr.read_data("text.txt")
         self.pushButton.clicked.connect(self.fill_table)
         self.pushButton_2.clicked.connect(self.clear_table)
-        
+        self.pushButton_3.clicked.connect(self.append_dish)  # Подключаем кнопку для добавления блюда
+
     def fill_table(self):
         self.tableWidget.setRowCount(len(self.gr.A))
         for row, dish in enumerate(self.gr.A):
@@ -23,53 +24,23 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def clear_table(self):
         self.tableWidget.clearContents()
 
-def main():
-    Gr = lib.Grup()
-    Gr.read_data("text.txt")
-    print("Меню:", Gr)
-    
-    while True:
-        print("Выберите действие:")
-        print("1. Вывести данные блюд категории X в файл")
-        print("2. Сформировать список блюд категории X по стоимости и вывести его")
-        print("3. Выполнить поиск блюда в списке L")
-        print("4. Выйти")
+    def append_dish(self):
+        name = self.lineEdit_name.text()
+        category = self.lineEdit_category.text()
+        weight = self.lineEdit_weight.text()
+        cost = self.lineEdit_cost.text()
 
-        choice = input("Введите номер действия: ")
-
-        if choice == "1":
-            category = input("Введите категорию блюд для записи в файл: ")
-            file_name = input("Введите имя файла для записи: ")
-            lib.write_category(category, Gr.menu_dict, file_name)
-            print(f"Данные блюд категории {category} записаны в файл {file_name}.")
-
-        elif choice == "2":
-            category = input("Введите категорию блюд для формирования списка: ")
-            max_price = int(input("Введите максимальную стоимость блюд: "))
-            sorted_dishes = lib.filter_and_sort_dishes(category, max_price, Gr.menu_dict)
-            for dish in sorted_dishes:
-                print(dish)
-
-        elif choice == "3":
-            category = input("Введите категорию блюд для формирования списка: ")
-            max_price = int(input("Введите максимальную стоимость блюд: "))
-            sorted_dishes = lib.filter_and_sort_dishes(category, max_price, Gr.menu_dict)
-            dish_name = input("Введите название блюда для поиска: ")
-            search_result = lib.linear_search(dish_name, sorted_dishes)
-            if search_result:
-                print(f"Найдено блюдо: {search_result}")
-            else:
-                print("Блюдо не найдено.")
-
-        elif choice == "4":
-            print("Выход из программы.")
-            break
-
+        result = self.gr.append_dish(name, category, weight, cost)
+        if result:
+            self.fill_table()
         else:
-            print("Некорректный ввод. Попробуйте снова.")
+            QtWidgets.QMessageBox.warning(self, "Ошибка", "Не удалось добавить блюдо. Проверьте корректность данных.")
 
-if __name__ == "__main__":
+def main():
     app = QtWidgets.QApplication(sys.argv)
     mainWindow = MainWindow()
     mainWindow.show()
     sys.exit(app.exec_())
+
+if __name__ == "__main__":
+    main()

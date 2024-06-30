@@ -50,6 +50,22 @@ class Grup:
                     self.A.append(dish)
                     self.menu_dict[dish_name] = dish
 
+    def append_dish(self, name, category, weight, cost):
+        if not name or not category or not weight or not cost:
+            return False
+
+        try:
+            weight = int(weight)
+            cost = int(cost)
+        except ValueError:
+            return False
+
+        new_dish = Dish(name, category, weight, cost)
+        self.A.append(new_dish)
+        self.menu_dict[name] = new_dish
+        return True
+
+    
 # Функция для рекурсивного вывода данных блюд категории X в файл
 def write_category_to_file(category, dishes, file):
     if not dishes:
