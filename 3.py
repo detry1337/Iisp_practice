@@ -36,7 +36,8 @@ class MainWindow(QMainWindow):
         self.pushButton_delete.clicked.connect(self.delete_dish)  # Кнопка удаления блюда
         self.pushButton_delete_cell.clicked.connect(self.delete_cell)  # Кнопка удаления содержимого ячейки
         self.pushButton_edit_cell.clicked.connect(self.edit_cell)  # Кнопка редактирования ячейки
-
+        self.pushButton_save.clicked.connect(self.save_table_data) # Кнопка сохранения тблицы
+        
     def load_table_data(self):
         """
         Загрузка данных блюд в таблицу.
@@ -142,6 +143,27 @@ class MainWindow(QMainWindow):
                 self.tableWidget.setItem(current_row, current_col, QTableWidgetItem(new_value))
             else:
                 QMessageBox.warning(self, "Error", "Invalid input data!")
+
+    
+    def save_table_data(self):
+        """
+        Сохранение таблицы в файл save.txt.
+        
+        Сохраняет данные талицы при нажатии на кнопку "Сохранить".
+        """
+        row_count = self.tableWidget.rowCount()
+        column_count = self.tableWidget.columnCount()
+        with open('save.txt', 'w', encoding="utf-8") as file:
+            for row in range(row_count):
+                row_data = []
+                for column in range(column_count):
+                    item = self.tableWidget.item(row, column)
+                    if item is not None:
+                        row_data.append(item.text())
+                    else:
+                        row_data.append('')
+                file.write(','.join(row_data) + '\n')
+
 
 
 if __name__ == "__main__":
