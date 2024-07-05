@@ -1,54 +1,131 @@
 class Dish:
+    """
+    Класс для представления блюда.
+
+    Содержит информацию о названии, категории, весе и стоимости блюда.
+    """
+
     def __init__(self, name="", category="", weight=None, cost=None):
+        """
+        Инициализация экземпляра класса Dish.
+
+        Аргументы:
+        name (str): Название блюда.
+        category (str): Категория блюда.
+        weight (int): Вес блюда.
+        cost (int): Стоимость блюда.
+        """
         self.name = name
         self.category = category
         self.weight = weight
         self.cost = cost
 
     def __str__(self):
+        """
+        Возвращает строковое представление блюда для отображения.
+
+        Возвращает:
+        str: Строка с информацией о блюде.
+        """
         return 'Dish:\n{} {}\nВес: {}\nЦена: {} рублей\n'.format(self.name, self.category, self.weight, self.cost)
 
     def __repr__(self):
+        """
+        Возвращает строковое представление блюда для разработчиков.
+
+        Возвращает:
+        str: Строка с подробной информацией о блюде.
+        """
         return 'Dish(name="{}", category="{}", weight={}, cost={})'.format(self.name, self.category, self.weight, self.cost)
 
-    def setDish(self, name, category, weight, cost):
+    def set_Dish(self, name, category, weight, cost):
+        """
+        Устанавливает параметры блюда.
+
+        Аргументы:
+        name (str): Название блюда.
+        category (str): Категория блюда.
+        weight (int): Вес блюда.
+        cost (int): Стоимость блюда.
+        """
         self.name = name
         self.category = category
         self.weight = int(weight)
         self.cost = int(cost)
     
-    def getDish(self):
+    def get_Dish(self):
+        """
+        Возвращает информацию о блюде в виде строки.
+
+        Возвращает:
+        str: Строка с информацией о блюде.
+        """
         return '{} {}\nВес: {}\nЦена: {} рублей\n'.format(self.name, self.category, self.weight, self.cost)
 
 class Grup:
+    """
+    Класс для управления группой блюд.
+
+    Содержит список блюд и словарь для быстрого доступа к блюдам по имени.
+    """
+
     def __init__(self):
+        """
+        Инициализация экземпляра класса Grup.
+
+        Создает пустой список блюд и пустой словарь.
+        """
         self.A = []
         self.menu_dict = {}
         self.count = 0
     
     def __str__(self):
+        """
+        Возвращает строковое представление всех блюд в группе.
+
+        Возвращает:
+        str: Строка с информацией о всех блюдах.
+        """
         s = ''
         i = 1
         for x in self.A:
             s += 'Dish:{}\n'.format(i)
-            s += x.getDish()
+            s += x.get_Dish()
             s += "\n"
             i += 1
         return s
 
     def read_data(self, file_name):
+        """
+        Читает данные из файла и добавляет блюда в группу.
+
+        Аргументы:
+        file_name (str): Имя файла с данными блюд.
+        """
         with open(file_name, "r", encoding="utf-8") as file:
             for line in file:
                 parts = line.strip().split(", ")
                 if len(parts) == 4:
                     dish_name, category, weight, cost = parts
                     dish = Dish()
-                    dish.setDish(dish_name, category, weight, cost)
+                    dish.set_Dish(dish_name, category, weight, cost)
                     self.A.append(dish)
                     self.menu_dict[dish_name] = dish
         print("Data loaded: ", self.menu_dict)  # Отладочное сообщение
 
     def append_dish(self, name, category, weight, cost):
+        """
+        Добавляет новое блюдо в группу.
+
+        Аргументы:
+        name (str): Название блюда.
+        category (str): Категория блюда.
+        weight (int): Вес блюда.
+        cost (int): Стоимость блюда.
+
+        Возвращает:
+        bool: True, если добавление прошло успешно, иначе False.
+        """
         if not name or not category or not weight or not cost:
             return False
 
@@ -64,6 +141,15 @@ class Grup:
         return True
     
     def delete_dish_by_name(self, name):
+        """
+        Удаляет блюдо по имени.
+
+        Аргументы:
+        name (str): Название блюда.
+
+        Возвращает:
+        bool: True, если удаление прошло успешно, иначе False.
+        """
         if name in self.menu_dict:
             dish = self.menu_dict.pop(name)
             self.A.remove(dish)
@@ -71,6 +157,16 @@ class Grup:
         return False
 
     def delete_cell(self, row, col):
+        """
+        Удаляет содержимое ячейки по заданным координатам.
+
+        Аргументы:
+        row (int): Номер строки.
+        col (int): Номер колонки.
+
+        Возвращает:
+        bool: True, если удаление прошло успешно, иначе False.
+        """
         if row < len(self.A):
             dish = self.A[row]
             if col == 0:
@@ -85,6 +181,17 @@ class Grup:
         return False
 
     def edit_cell(self, row, col, new_value):
+        """
+        Редактирует содержимое ячейки по заданным координатам и новому значению.
+
+        Аргументы:
+        row (int): Номер строки.
+        col (int): Номер колонки.
+        new_value (str): Новое значение.
+
+        Возвращает:
+        bool: True, если редактирование прошло успешно, иначе False.
+        """
         if row < len(self.A):
             dish = self.A[row]
             if col == 0:
@@ -99,44 +206,3 @@ class Grup:
                 dish.cost = int(new_value)
             return True
         return False
-
-# Функция для рекурсивного вывода данных блюд категории X в файл
-def write_category_to_file(category, dishes, file):
-    if not dishes:
-        return
-    dish_name, dish_data = dishes[0]
-    if dish_data.category == category:
-        file.write(f"{dish_data}\n")
-    write_category_to_file(category, dishes[1:], file)
-
-def write_category(category, menu_dict, file_name):
-    with open(file_name, "w", encoding="utf-8") as file:
-        write_category_to_file(category, list(menu_dict.items()), file)
-
-# Функция для формирования списка L с данными о блюдах категории X, стоимостью не более Y рублей, отсортированным по стоимости
-def filter_and_sort_dishes(category, max_price, menu_dict):
-    filtered_dishes = [dish for dish in menu_dict.values() if dish.category == category and dish.cost <= max_price]
-
-    # Пузырьковая сортировка списка по стоимости
-    n = len(filtered_dishes)
-    for i in range(n):
-        for j in range(0, n-i-1):
-            if filtered_dishes[j].cost > filtered_dishes[j+1].cost:
-                filtered_dishes[j], filtered_dishes[j+1] = filtered_dishes[j+1], filtered_dishes[j]
-
-    return filtered_dishes
-
-# Функция для линейного поиска блюда в списке L
-def linear_search(dish_name, dish_list):
-    for dish in dish_list:
-        if dish.name == dish_name:
-            return dish
-    return None
-
-# Тестирование
-if __name__ == "__main__":
-    Gr = Grup()
-    Gr.read_data("text.txt")
-    print("Меню:", Gr.menu_dict)
-    write_category("первые блюда", Gr.menu_dict, "output.txt")
-    print("Категория 'первые блюда' записана в файл 'output.txt'.")

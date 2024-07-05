@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\sassh\Desktop\практика8- рабочая\dish.ui'
+# Form implementation generated from reading ui file 'c:\Users\sassh\Desktop\практики\практика9- рабочая с гитом\dish.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.10
 #
@@ -16,7 +16,7 @@ class Ui_MainWindow(object):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(916, 600)
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("c:\\Users\\sassh\\Desktop\\практика8- рабочая\\../практики/практика5-рабочая/icon.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap("c:\\Users\\sassh\\Desktop\\практики\\практика9- рабочая с гитом\\../практики/практика5-рабочая/icon.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         MainWindow.setWindowIcon(icon)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
@@ -25,24 +25,24 @@ class Ui_MainWindow(object):
         self.tableWidget.setObjectName("tableWidget")
         self.tableWidget.setColumnCount(0)
         self.tableWidget.setRowCount(0)
-        self.pushButton = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton.setGeometry(QtCore.QRect(480, 50, 111, 41))
+        self.pushButton_fill = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_fill.setGeometry(QtCore.QRect(480, 50, 111, 41))
         font = QtGui.QFont()
         font.setPointSize(12)
-        self.pushButton.setFont(font)
-        self.pushButton.setObjectName("pushButton")
-        self.pushButton_2 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_2.setGeometry(QtCore.QRect(600, 50, 111, 41))
+        self.pushButton_fill.setFont(font)
+        self.pushButton_fill.setObjectName("pushButton_fill")
+        self.pushButton_clear = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_clear.setGeometry(QtCore.QRect(600, 50, 111, 41))
         font = QtGui.QFont()
         font.setPointSize(12)
-        self.pushButton_2.setFont(font)
-        self.pushButton_2.setObjectName("pushButton_2")
-        self.pushButton_3 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_3.setGeometry(QtCore.QRect(480, 130, 231, 41))
+        self.pushButton_clear.setFont(font)
+        self.pushButton_clear.setObjectName("pushButton_clear")
+        self.pushButton_add = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_add.setGeometry(QtCore.QRect(480, 130, 231, 41))
         font = QtGui.QFont()
         font.setPointSize(12)
-        self.pushButton_3.setFont(font)
-        self.pushButton_3.setObjectName("pushButton_3")
+        self.pushButton_add.setFont(font)
+        self.pushButton_add.setObjectName("pushButton_add")
         self.pushButton_delete = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_delete.setGeometry(QtCore.QRect(730, 440, 131, 31))
         font = QtGui.QFont()
@@ -156,9 +156,9 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "Перделяну Александр"))
-        self.pushButton.setText(_translate("MainWindow", "Запонлнить"))
-        self.pushButton_2.setText(_translate("MainWindow", "Очистить"))
-        self.pushButton_3.setText(_translate("MainWindow", "Добавить блюдо"))
+        self.pushButton_fill.setText(_translate("MainWindow", "Запонлнить"))
+        self.pushButton_clear.setText(_translate("MainWindow", "Очистить"))
+        self.pushButton_add.setText(_translate("MainWindow", "Добавить блюдо"))
         self.pushButton_delete.setText(_translate("MainWindow", "Удалить"))
         self.pushButton_delete_cell.setText(_translate("MainWindow", "Удалить ячейку"))
         self.pushButton_edit_cell.setText(_translate("MainWindow", "Изменить ячейку"))

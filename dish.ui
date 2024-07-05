@@ -28,7 +28,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="pushButton_fill">
     <property name="geometry">
      <rect>
       <x>480</x>
@@ -46,7 +46,7 @@
      <string>Запонлнить</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_2">
+   <widget class="QPushButton" name="pushButton_clear">
     <property name="geometry">
      <rect>
       <x>600</x>
@@ -64,7 +64,7 @@
      <string>Очистить</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_3">
+   <widget class="QPushButton" name="pushButton_add">
     <property name="geometry">
      <rect>
       <x>480</x>

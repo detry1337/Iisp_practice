@@ -1,28 +1,49 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow
+from PyQt5.QtWidgets import QApplication, QMainWindow, QTableWidgetItem, QMessageBox
 from PyQt5.uic import loadUi
-from PyQt5.QtWidgets import QTableWidgetItem, QMessageBox
 from library3 import Grup, Dish
 
-class MainWindow(QMainWindow):
-    def __init__(self):
-        super(MainWindow, self).__init__()
-        loadUi('dish.ui', self)
-        self.setWindowTitle("Dish Manager")
 
+class MainWindow(QMainWindow):
+    """
+    Главное окно приложения для управления блюдами.
+
+    Класс отвечает за инициализацию пользовательского интерфейса,
+    загрузку данных в таблицу и обработку действий пользователя.
+    """
+
+    def __init__(self):
+        """
+        Инициализация главного окна.
+
+        Загружает пользовательский интерфейс из файла .ui,
+        устанавливает заголовок окна, инициализирует группу блюд и
+        связывает кнопки с соответствующими методами.
+        """
+        super(MainWindow, self).__init__() # Вызов инициализатора родительского класса QMainWindow
+        loadUi('dish.ui', self)
+        self.setWindowTitle("Перделяну Александр")
+
+        # Инициализация группы блюд
         self.group = Grup()
-        self.group.read_data("text.txt")  # Загружаем данные сразу
+        self.group.read_data("text.txt")
         self.load_table_data()
 
-        # Привязка кнопок
-        self.pushButton_3.clicked.connect(self.add_dish)
-        self.pushButton.clicked.connect(self.fill_table)
-        self.pushButton_2.clicked.connect(self.clear_table)
-        self.pushButton_delete.clicked.connect(self.delete_dish)
-        self.pushButton_delete_cell.clicked.connect(self.delete_cell)
-        self.pushButton_edit_cell.clicked.connect(self.edit_cell)
+        # Связывание кнопок с методами
+        self.pushButton_add.clicked.connect(self.add_dish)  # Кнопка добавления блюда
+        self.pushButton_fill.clicked.connect(self.fill_table)  # Кнопка заполнения таблицы
+        self.pushButton_clear.clicked.connect(self.clear_table)  # Кнопка очистки таблицы
+        self.pushButton_delete.clicked.connect(self.delete_dish)  # Кнопка удаления блюда
+        self.pushButton_delete_cell.clicked.connect(self.delete_cell)  # Кнопка удаления содержимого ячейки
+        self.pushButton_edit_cell.clicked.connect(self.edit_cell)  # Кнопка редактирования ячейки
 
     def load_table_data(self):
+        """
+        Загрузка данных блюд в таблицу.
+
+        Устанавливает количество колонок, заголовки колонок и заполняет таблицу
+        данными из группы блюд.
+        """
         self.tableWidget.setColumnCount(4)
         self.tableWidget.setHorizontalHeaderLabels(["Dish Name", "Category", "Weight", "Cost"])
         self.tableWidget.setRowCount(len(self.group.A))
@@ -35,6 +56,12 @@ class MainWindow(QMainWindow):
             self.tableWidget.setItem(row, 3, QTableWidgetItem(str(dish.cost)))
 
     def add_dish(self):
+        """
+        Добавление нового блюда в таблицу.
+
+        Получает данные блюда из полей ввода, добавляет блюдо в группу
+        и обновляет таблицу. Показывает предупреждение в случае ошибки ввода.
+        """
         name = self.lineEdit_name.text()
         category = self.lineEdit_category.text()
         weight = self.lineEdit_weight.text()
@@ -51,17 +78,32 @@ class MainWindow(QMainWindow):
             QMessageBox.warning(self, "Error", "Invalid input data!")
 
     def fill_table(self):
-        self.load_table_data()  # Заполняем таблицу данными
+        """
+        Заполнение таблицы данными.
+
+        Вызывает метод загрузки данных в таблицу.
+        """
+        self.load_table_data()
 
     def clear_table(self):
+        """
+        Очистка таблицы.
+
+        Устанавливает количество строк таблицы равным нулю.
+        """
         self.tableWidget.setRowCount(0)
 
     def delete_dish(self):
+        """
+        Удаление выбранного блюда из таблицы.
+        
+        Получает выбранную строку, удаляет соответствующее блюдо из группы
+        и удаляет строку из таблицы. Показывает сообщение об успешном удалении
+        или предупреждение в случае ошибки.
+        """
         selected_row = self.tableWidget.currentRow()
         if selected_row >= 0:
             name = self.tableWidget.item(selected_row, 0).text()
-            category = self.tableWidget.item(selected_row, 1).text()
-            cost = self.tableWidget.item(selected_row, 3).text()
 
             if self.group.delete_dish_by_name(name):
                 self.tableWidget.removeRow(selected_row)
@@ -71,8 +113,13 @@ class MainWindow(QMainWindow):
         else:
             QMessageBox.warning(self, "Ошибка", "Блюдо не выбрано.")
 
-
     def delete_cell(self):
+        """
+        Удаление содержимого выбранной ячейки.
+        
+        Получает текущую строку и колонку из соответствующих полей ввода,
+        удаляет содержимое ячейки и обновляет таблицу.
+        """
         current_row = self.spinBox_row.value()
         current_col = self.spinBox_col.value()
         if current_row < self.tableWidget.rowCount() and current_col < self.tableWidget.columnCount():
@@ -80,6 +127,13 @@ class MainWindow(QMainWindow):
             self.tableWidget.setItem(current_row, current_col, QTableWidgetItem(""))
 
     def edit_cell(self):
+        """
+        Редактирование содержимого выбранной ячейки.
+        
+        Получает текущую строку, колонку и новое значение из соответствующих
+        полей ввода, обновляет содержимое ячейки и таблицы.
+        Показывает предупреждение в случае ошибки ввода.
+        """
         current_row = self.spinBox_row.value()
         current_col = self.spinBox_col.value()
         new_value = self.lineEdit_new_value.text()
@@ -89,7 +143,17 @@ class MainWindow(QMainWindow):
             else:
                 QMessageBox.warning(self, "Error", "Invalid input data!")
 
-app = QApplication(sys.argv)
-mainWindow = MainWindow()
-mainWindow.show()
-sys.exit(app.exec_())
+
+if __name__ == "__main__":
+    """
+    Запуск приложения.
+    
+    Создает экземпляр QApplication, создает и отображает главное окно,
+    запускает цикл обработки событий.
+    """
+    app = QApplication(sys.argv)
+    mainWindow = MainWindow()
+    mainWindow.show()
+    sys.exit(app.exec_())
+
+
